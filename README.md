@@ -1,7 +1,6 @@
 # ElementUsagePreview
 
-Preview every page an Umbraco Element is used on, before you publish it — not an official
-Umbraco-branded package, built to an Umbraco-grade quality bar.
+Preview every page an Umbraco Element lives on.
 
 ## The idea
 

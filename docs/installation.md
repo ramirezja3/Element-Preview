@@ -12,7 +12,7 @@ connected app, an OAuth client, or a config section to set up.
 ## Install
 
 ```bash
-dotnet add package ElementUsagePreview
+dotnet add package Element.Preview
 ```
 
 Restart the site. That's it — there is no configuration step. The new action appears next to

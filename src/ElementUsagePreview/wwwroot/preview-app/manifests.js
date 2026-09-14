@@ -10,7 +10,7 @@ export const manifests = [
     {
         type: 'previewApp',
         alias: ELEMENT_USAGE_PREVIEW_PREVIEW_APP_ALIAS,
-        name: 'Element Usage Preview Nav',
+        name: 'Element Preview Nav',
         element: () => import('./element-usage-preview-nav.element.js'),
         weight: 500,
     },

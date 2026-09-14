@@ -23,7 +23,7 @@ backend, no new database tables, no bespoke indexing, no Core changes required.
 ## Getting started
 
 ```bash
-dotnet add package ElementUsagePreview
+dotnet add package Element.Preview
 ```
 
 Restart the site — there's no configuration step. See [docs/installation.md](docs/installation.md)

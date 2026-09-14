@@ -9,11 +9,11 @@
          a dependency purely to pin/signal compatibility with the target Umbraco version, matching
          convention for an Umbraco addon package, even though nothing here references its types. -->
     <PropertyGroup>
-        <PackageId>ElementUsagePreview</PackageId>
+        <PackageId>Element.Preview</PackageId>
         <!-- Kept in lockstep with wwwroot/umbraco-package.json's own "version" field by convention —
              bump both together. -->
         <Version>0.1.0</Version>
-        <Title>Element Usage Preview</Title>
+        <Title>Element Preview</Title>
         <Description>Preview every page an Umbraco Element is used on, before you publish it.</Description>
         <PackageTags>umbraco;umbraco-cms;umbraco-marketplace;elements;preview;backoffice</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>

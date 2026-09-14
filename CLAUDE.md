@@ -11,9 +11,12 @@ references it, without a custom backend.
 > history was moved, not deleted. If something below looks surprising, check there first — it's
 > very likely a deliberate decision with a documented reason, not an oversight.
 
-**Package name:** `ElementUsagePreview` — deliberately **not** `Umbraco.*`-prefixed. This is not an
-official Umbraco-branded package, even though it's built to an Umbraco-grade quality bar. The name
-is a reasonable working default, not a locked branding decision.
+**Package name:** the NuGet `PackageId` is `Element.Preview` (display title "Element Preview") —
+deliberately **not** `Umbraco.*`-prefixed. This is not an official Umbraco-branded package, even
+though it's built to an Umbraco-grade quality bar. The repo, project folder, `.csproj`/`.slnx`
+filenames, and internal extension aliases still say `ElementUsagePreview` — only the public-facing
+NuGet identity and display names were renamed; nothing internal was touched, so don't be surprised
+by the mismatch when reading file paths below.
 
 ---
 

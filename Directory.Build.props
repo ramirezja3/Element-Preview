@@ -8,7 +8,7 @@
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <NoWarn>$(NoWarn);CS1591</NoWarn>
-        <Authors>Element Usage Preview contributors</Authors>
+        <Authors>Element Preview contributors</Authors>
         <PackageProjectUrl>https://github.com/ramirezja3/Element-Preview</PackageProjectUrl>
         <RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>

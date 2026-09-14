@@ -1,12 +1,12 @@
 {
     "$schema": "../../umbraco-package-schema.json",
-    "name": "Element Usage Preview",
+    "name": "Element Preview",
     "version": "0.1.0",
     "extensions": [
         {
             "type": "bundle",
             "alias": "ElementUsagePreview.Bundle",
-            "name": "Element Usage Preview Bundle",
+            "name": "Element Preview Bundle",
             "js": "/App_Plugins/ElementUsagePreview/manifests.js"
         }
     ]

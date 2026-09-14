@@ -1,0 +1,18 @@
+<Project>
+
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    </PropertyGroup>
+
+    <!-- Umbraco.Cms.* packages are versioned identically to the CMS release itself. Pinned to
+         18.1.1 — the newest version actually published as GA on nuget.org as of 2026-09-03 (18.2.0
+         exists only as "18.2.0-rc" at time of writing; confirmed by attempting a real restore, not
+         assumed from the CMS repo having a release/18.2.0 branch — that branch existing is not the
+         same as the package having shipped). Bump once 18.2.0 GAs. Only Umbraco.Cms.Core remains
+         (kept purely for version-compatibility signaling, CLAUDE.md §13) — Umbraco.Cms.Api.Management
+         was dropped once the custom backend controller it was needed for was removed. -->
+    <ItemGroup>
+        <PackageVersion Include="Umbraco.Cms.Core" Version="18.1.1" />
+    </ItemGroup>
+
+</Project>

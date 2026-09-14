@@ -1,0 +1,15 @@
+{
+    "name": "element-usage-preview",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "tsc -p tsconfig.json",
+        "pretest": "npm run build",
+        "test": "node --disable-warning=ExperimentalWarning --test repository/*.test.ts"
+    },
+    "devDependencies": {
+        "typescript": "^5.6.0",
+        "@types/node": "^22.10.0",
+        "@umbraco-cms/backoffice": "18.1.1"
+    }
+}

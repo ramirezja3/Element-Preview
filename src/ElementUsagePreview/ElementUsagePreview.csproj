@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <!-- Razor SDK RCL — the standard Umbraco packaging shape for an addon that ships backoffice
+         extension assets (wwwroot/App_Plugins). No custom backend, no persistence, no migrations
+         (CLAUDE.md §6/§13): usage resolution runs client-side against Umbraco's own public
+         "referenced by" Management API endpoints (ElementService/DocumentService/MediaService/
+         MemberService), the same ones behind the Info workspace view's "where used" list — so
+         there's no C# in this package at all beyond this project file. Umbraco.Cms.Core stays as
+         a dependency purely to pin/signal compatibility with the target Umbraco version, matching
+         convention for an Umbraco addon package, even though nothing here references its types. -->
+    <PropertyGroup>
+        <PackageId>ElementUsagePreview</PackageId>
+        <!-- Kept in lockstep with wwwroot/umbraco-package.json's own "version" field by convention —
+             bump both together. -->
+        <Version>0.1.0</Version>
+        <Title>Element Usage Preview</Title>
+        <Description>Preview every page an Umbraco Element is used on, before you publish it.</Description>
+        <PackageTags>umbraco;umbraco-cms;umbraco-marketplace;elements;preview;backoffice</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+        <StaticWebAssetBasePath>App_Plugins/ElementUsagePreview</StaticWebAssetBasePath>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Umbraco.Cms.Core" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" />
+    </ItemGroup>
+
+    <!-- TypeScript sources, the unit test, and Node tooling config are dev-time only — the extension
+         loads compiled .js at runtime via dynamic import (manifests.ts explains why the compiled
+         output sits next to its source rather than being bundled). None of it does anything at
+         runtime, so it's excluded here rather than shipped into every consumer's site on install. -->
+    <ItemGroup>
+        <Content Remove="wwwroot\**\*.ts" />
+        <Content Remove="wwwroot\package.json" />
+        <Content Remove="wwwroot\package-lock.json" />
+        <Content Remove="wwwroot\tsconfig.json" />
+    </ItemGroup>
+
+</Project>

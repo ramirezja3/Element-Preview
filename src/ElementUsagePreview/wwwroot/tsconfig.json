@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "ES2022",
+        "moduleResolution": "Bundler",
+        "strict": true,
+        "skipLibCheck": true,
+        "experimentalDecorators": true,
+        "useDefineForClassFields": false,
+        "rootDir": ".",
+        "outDir": "."
+    },
+    "include": ["**/*.ts"],
+    "exclude": ["node_modules", "**/*.test.ts"]
+}

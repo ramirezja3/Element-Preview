@@ -1,4 +1,4 @@
-# ElementUsagePreview
+# Element Preview
 
 Preview every page an Umbraco Element lives on.
 

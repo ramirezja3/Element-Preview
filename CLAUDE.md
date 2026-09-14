@@ -198,11 +198,10 @@ pages, and non-admin permissions.
 
 ## 11. Before publishing this package
 
-- [ ] Replace the placeholder `PackageProjectUrl`/`RepositoryUrl` in `Directory.Build.props`
-      (currently `https://github.com/your-org/ElementUsagePreview`) with the real repository URL.
-- [ ] Confirm the `LICENSE` file's copyright holder name still matches who should actually hold
-      copyright (currently "Element Usage Preview contributors", matching `Directory.Build.props`'s
-      `Authors` — not a real legal entity, just a self-consistent placeholder).
+- [x] `PackageProjectUrl`/`RepositoryUrl` in `Directory.Build.props` point at the real repository:
+      `https://github.com/ramirezja3/Element-Preview`.
+- [x] License confirmed as MIT, copyright holder "Element Usage Preview contributors" (matching
+      `Directory.Build.props`'s `Authors`).
 - [ ] Decide the first published `Version` (currently `0.1.0` in both the `.csproj` and
       `wwwroot/umbraco-package.json` — keep these two in lockstep on every bump).
 - [ ] Re-run `dotnet pack` and spot-check the resulting `.nupkg` contents — confirm only compiled

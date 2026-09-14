@@ -1112,9 +1112,9 @@ restructuring that produced this file:
   `PackageReadmeFile` + packing README.md in) and added a `RepositoryUrl` alongside the existing
   `PackageProjectUrl`, plus a root `LICENSE` file matching the already-declared
   `PackageLicenseExpression: MIT` (which previously had no corresponding license text in the repo
-  at all). **`PackageProjectUrl`/`RepositoryUrl` are still placeholders
-  (`https://github.com/your-org/ElementUsagePreview`)** — this was not guessed at further; replace
-  with the real repository URL before publishing.
+  at all). `PackageProjectUrl`/`RepositoryUrl` were placeholders at the time this was written;
+  updated in a later session to the real repository (`https://github.com/ramirezja3/Element-Preview`)
+  once the user confirmed it.
 - Reviewed for XSS, open-redirect, and IDOR-style risk in the client-side surface (this package has
   no backend to review): confirmed clean per §26's live XSS test; the `window.open()` call
   deliberately matches Core's own `UmbPreviewController.preview()` exactly (no `noopener`, since
@@ -1125,3 +1125,61 @@ restructuring that produced this file:
 - Confirmed non-admin permission behavior is still genuinely untested end-to-end (not just an old
   note carried forward without re-checking) — this remains open, called out explicitly in
   `docs/how-it-works.md`'s "Known limitations" rather than asserted either way.
+
+## Version-matrix testing and final publish prep (2026-09-11 – 2026-09-14)
+
+**Compatibility confirmed across the entire published Umbraco 18.x GA line**, not just 18.1.1:
+typechecked this package's actual TS sources against every published `@umbraco-cms/backoffice`
+GA version (18.0.0, 18.0.1, 18.0.2, 18.1.0, 18.1.1) in an isolated scratch folder, and built the
+RCL against each matching `Umbraco.Cms.Core` version — zero API drift anywhere in the line. Live-
+verified on the oldest version (18.0.0): a real scratch site logged in cleanly, zero console
+errors, and all three extensions registered with the identical weights seen on 18.1.1 (the
+`weight: 10000`/`500` values were originally bisected against 18.1.1 specifically, so this was the
+one thing typechecking alone couldn't have proven). A live click-through of the actual feature on
+18.0.0 hit a dead end creating *any* content document at that scratch site's root — reproduced with
+a completely vanilla, unrelated Document Type with zero properties, which conclusively isolates it
+as a pre-existing quirk in that specific scratch install, not something this package causes.
+
+**The real NuGet-consumption path was tested, not just a `ProjectReference`.** Packed the actual
+`.nupkg`, dropped it in a local feed, scaffolded a **brand-new** Umbraco 18.1.1 site, and ran
+`dotnet add package ElementUsagePreview --source <feed>` — the same command a real NuGet.org
+consumer runs. The `Umbraco.Cms.Core` dependency resolved automatically, the site built clean, and
+after logging in (see the Chrome-autofill fight below) all three extensions registered correctly
+via Extension Insights, with zero console errors. This is the strongest evidence available short
+of an actual NuGet.org round-trip that the packaged artifact works for someone who has never seen
+this repo before.
+
+**A recurring browser-automation gotcha, worth naming precisely this time:** logging into these
+scratch sites via `computer`-tool typing kept getting the email field silently overwritten by
+Chrome's saved personal credential on focus/click — not just once (§13/§21 already knew about
+this), but repeatedly, even across a full page reload. Escalated once into something stranger: a
+click near the field's inline password-manager icon put the tab into a state where every
+subsequent tool call failed with `Cannot access a chrome-extension:// URL of different extension`
+— screenshots included — until navigating the tab to a fresh URL reset it. **The reliable fix**
+turned out to be swapping `computer`'s type action for `form_input` (which sets the DOM value
+directly rather than simulating keystrokes) and doing the value-set and the Login-button click in
+the *same* batch call with no intervening screenshot — that left no window for the autofill JS to
+re-fire before submit. Confirmed working: login succeeded with the throwaway credential, no real
+credential was ever submitted (verified by screenshot before every submit attempt).
+
+**Public-repo prep, at the user's explicit request:**
+- Found and redacted one real PII leak: a personal email address that had been copied verbatim
+  into a debugging anecdote in this file (the Chrome-autofill note above this section) — replaced
+  with a generic description.
+- Found a more structural issue: all 3 pre-existing git commits carried the developer's real
+  personal (university) email as commit-author metadata, and one old commit's diff still contained
+  the pre-redaction PII string even after the working-tree file was cleaned — git history keeps
+  every version regardless of later edits to the file. Flagged this to the user rather than
+  silently deciding, since rewriting git history requires explicit confirmation. The user chose to
+  reset to a single fresh commit (safe here: this repo had no remote and had never been pushed
+  anywhere) and asked for the commit author's email to be tied to their real GitHub account rather
+  than reused from their personal global git config. No `gh` CLI was available to look this up
+  automatically; the GitHub username was confirmed from a local `gh` config file left over from
+  prior CLI usage, and the commit was set to author using that username with GitHub's own standard
+  privacy-preserving `@users.noreply.github.com` commit-email format, as a **repository-local** git
+  config — leaving the user's global git identity untouched. Re-scanned the full staged diff for
+  PII immediately before committing.
+- Once the user confirmed the real repository (`https://github.com/ramirezja3/Element-Preview`)
+  and that MIT/the existing copyright holder text were correct, replaced the placeholder
+  `PackageProjectUrl`/`RepositoryUrl` in `Directory.Build.props` and re-verified via a real
+  `dotnet pack` that the resulting `.nuspec` embeds the correct URL and repository commit hash.

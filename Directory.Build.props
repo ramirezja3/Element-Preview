@@ -9,9 +9,7 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <NoWarn>$(NoWarn);CS1591</NoWarn>
         <Authors>Element Usage Preview contributors</Authors>
-        <!-- TODO before first publish: replace with the real repository URL — this placeholder is
-             not a real address and must not be published as-is. -->
-        <PackageProjectUrl>https://github.com/your-org/ElementUsagePreview</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/ramirezja3/Element-Preview</PackageProjectUrl>
         <RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryType>git</RepositoryType>
